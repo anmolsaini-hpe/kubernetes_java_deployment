@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: first-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: first-service
+  template:
+    metadata:
+      labels:
+        app: first-service
+    spec:
+      containers:
+      - name: first-service
+        image: anmolsainihpe/first-service:latest
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: first-service
+spec:
+  selector:
+    app: first-service
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+
